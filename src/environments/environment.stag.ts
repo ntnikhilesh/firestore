@@ -1,14 +1,15 @@
 export const environment = {
   name: "stag",
   production: false,
-  baseUrl: 'https://stage.tripeur.in/main/api/v1/',
-  baseUrl2: 'https://stage.tripeur.in/main/api/v2/',
-  domainName: 'https://stage.tripeur.in/',
-  GA_Tracking_Id: 'UA-154894994-1',
-  GA_Script: "window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; ga('create', 'UA-154894994-1', 'auto'); ga('send', 'pageview')",
-  lamdaBaseUrl: 'https://api-stag.tripeur.in/',
-  email_noti_template_name: "hotel_email_template_qa",
-  nudge_env_name: "qa",
-  appVer: 506,
-  proxyUrl: 'https://stage.tripeur.in/schedule/proxy'
+  proxyUrl: 'https://dev.tripeur.in/schedule/proxy',
+  firebase: {
+    apiKey: "AIzaSyCTn6Q10go70xOVuQRAJKgGOHstQp8Wcek",
+    authDomain: "fs-file-mgmt.firebaseapp.com",
+    databaseURL: "https://fs-file-mgmt.firebaseio.com",
+    projectId: "fs-file-mgmt",
+    storageBucket: "fs-file-mgmt.appspot.com",
+    messagingSenderId: "888272867919",
+    appId: "1:888272867919:web:717c4934744cb729d1903a",
+    measurementId: "G-27KQSY5NLS"
+  }
 };

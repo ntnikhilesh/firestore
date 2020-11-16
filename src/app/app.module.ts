@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderInterceptorService } from './modules/loader/loader-interceptor.service';
 import { LoaderModule } from './modules/loader/loader.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +20,10 @@ import { LoaderModule } from './modules/loader/loader.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    LoaderModule
+    LoaderModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule
   ],
   providers: [
     {
