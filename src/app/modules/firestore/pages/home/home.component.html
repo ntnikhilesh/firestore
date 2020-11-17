@@ -1,7 +1,27 @@
-<p>File Management</p>
 
-<ul>
-    <li class="text" *ngFor="let item of itemArr | async">
-        {{item.title}}
-    </li>
-</ul>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4> <b>File Management</b></h4>
+        </div>
+    </div>
+
+    <div class="row mb-3" *ngFor="let item of itemArr | async">
+        <div class="col-6">
+            {{item.title}}
+        </div>
+        <div class="col-3">
+            <button (click)="deleteItem(item)">D</button>
+        </div>
+        <div class="col-3">
+            <button (click)="updateItem(item)">U</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button (click)="addItem()">Add Item</button>
+        </div>
+    </div>
+
+</div>
