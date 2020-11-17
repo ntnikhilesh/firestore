@@ -10,6 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ItemService } from './services/item.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
       useClass: LoaderInterceptorService,
       multi: true,
     },
+    ItemService
   ],
   bootstrap: [AppComponent]
 })

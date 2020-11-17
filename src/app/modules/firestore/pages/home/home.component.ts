@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-export interface ItemList { title: string; desc: string; }
-export interface ItemId extends ItemList { id: string; }
+import { ItemService } from '../../../../services/item.service';
+import { Item } from '../../../../models/Item';
 
 @Component({
   selector: 'app-home',
@@ -13,63 +9,37 @@ export interface ItemId extends ItemList { id: string; }
 })
 export class HomeComponent implements OnInit {
 
-  // items: Observable<any[]>;
-  // constructor(firestore: AngularFirestore) {
-  //   this.items = firestore.collection('items').valueChanges();
-  //   console.log("items::",this.items);
-  // }
+  items: Item[];
 
-  private itemCollection: AngularFirestoreCollection<ItemList>;
-  private itemDoc: AngularFirestoreDocument<ItemList>;
-
-  itemArr: Observable<ItemId[]>;
-  constructor(private readonly afs: AngularFirestore) {
-    this.getItem();
+  constructor(private itemService: ItemService) {
   }
 
   ngOnInit(): void {
+    this.getUpdatedItems();
   }
 
-  getItem() {
-    this.itemCollection = this.afs.collection<ItemList>('items');
-    // .snapshotChanges() returns a DocumentChangeAction[], which contains
-    // a lot of information about "what happened" with each change. If you want to
-    // get the data and the id use the map operator.
-    this.itemArr = this.itemCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as ItemList;
-        const id = a.payload.doc.id;
-        console.log("data:", data);
-        console.log("id:", id);
-        return { id, ...data };
-      }))
-    );
 
-    console.log("itemArr::", this.itemArr);
+  getUpdatedItems() {
+    this.itemService.getItems().subscribe(items => {
+      this.items = items;
+      console.log("items::", this.items);
+    });
   }
 
   addItem() {
-    console.log("addItem:");
-    var d = new Date();
-    var n = d.getMilliseconds();
-    this.itemCollection.add({ title: "item-" + n, desc: "This is item " + n });
+    console.log("addItem: ");
+    this.itemService.addItem();
   }
 
   deleteItem(item: any) {
-    console.log("deleteItem::", item);
-    this.itemDoc = this.afs.doc(`items/${item.id}`);
-    this.itemDoc.delete();
-    this.getItem();
+    console.log("deleteItem: ", item);
+    this.itemService.deleteItem(item);
   }
 
   updateItem(item: any) {
-    console.log("updateItem::", item);
-    var d = new Date();
-    var n = d.getMilliseconds();
-    item["title"] = "Updated item-" + n
-    this.itemDoc = this.afs.doc(`items/${item.id}`);
-    this.itemDoc.update(item);
-    this.getItem();
+    console.log("updateItem: ", item);
+    this.itemService.updateItem(item);
   }
+
 
 }
